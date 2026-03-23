@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import API from "../services/api";
 import AppointmentForm from "./AppointmentForm";
 import AppointmentList from "./AppointmentList";
-import handleCancelEdit from "./AppointmentForm"; 
 import "../styles/Dashboard.css";
 
 const Dashboard = () => {
