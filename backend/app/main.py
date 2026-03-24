@@ -33,3 +33,13 @@ app.include_router(auth.router)
 @app.get("/")
 def home():
     return {"message": "Backend is running"}
+from app.email_service import send_reminder_email
+
+@app.get("/test-email")
+async def test_email():
+    await send_reminder_email(
+        "imtiyazansari.1997@gmail.com",  # ⚠️ replace with YOUR email
+        "Auslanderbehörde Appointment",
+        "Tomorrow 10 AM"
+    )
+    return {"message": "Email sent"}
