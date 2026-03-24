@@ -14,11 +14,12 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",  # React default
     "http://localhost:3001",  # Your frontend port
+    "https://appointment-app-self.vercel.app",
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,        # allow frontend origins
+    allow_origins=["*"],        # allow all origins
     allow_credentials=True,       # allow cookies/auth headers
     allow_methods=["*"],          # GET, POST, DELETE, etc.
     allow_headers=["*"],          # allow all headers
