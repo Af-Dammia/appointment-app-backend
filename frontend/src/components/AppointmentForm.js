@@ -75,7 +75,7 @@ const AppointmentForm = ({ onAdd, editing, onUpdate, onCancel }) => {
         required
       />
 
-      {/* ✨ Modern Date Picker */}
+      {/* Modern Date Picker */}
       <DatePicker
         selected={date}
         onChange={(d) => setDate(d)}

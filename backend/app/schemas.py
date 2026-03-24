@@ -15,7 +15,7 @@ class Token(BaseModel):
     access_token: str
     token_type: str
 
-# 📅 Appointment Schemas (ADD THESE)
+# ppointment Schemas
 class AppointmentCreate(BaseModel):
     title: str
     description: Optional[str] = None

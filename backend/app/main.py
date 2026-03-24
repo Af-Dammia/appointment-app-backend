@@ -3,14 +3,17 @@ from fastapi.middleware.cors import CORSMiddleware  # <-- import CORS middleware
 from app.routers import appointments, auth
 from app.database import engine
 from app.models import Base
+from app.scheduler import start_scheduler
 
-# ✅ Create tables
+
+
+#Create tables
 Base.metadata.create_all(bind=engine)
 
-# ✅ Create app instance
+#Create app instance
 app = FastAPI()
 
-# ✅ Add CORS settings
+#Add CORS settings
 origins = [
     "http://localhost:3000",  # React default
     "http://localhost:3001",  # Your frontend port
@@ -25,21 +28,23 @@ app.add_middleware(
     allow_headers=["*"],          # allow all headers
 )
 
-# ✅ Include routers AFTER middleware
+#Include routers AFTER middleware
 app.include_router(appointments.router)
 app.include_router(auth.router)
 
-# ✅ Test route
+#Test route
 @app.get("/")
 def home():
     return {"message": "Backend is running"}
 from app.email_service import send_reminder_email
-
+"""
 @app.get("/test-email")
 async def test_email():
     await send_reminder_email(
-        "imtiyazansari.1997@gmail.com",  # ⚠️ replace with YOUR email
+        "imtiyazansari.1997@gmail.com", 
         "Auslanderbehörde Appointment",
         "Tomorrow 10 AM"
     )
     return {"message": "Email sent"}
+"""
+start_scheduler()

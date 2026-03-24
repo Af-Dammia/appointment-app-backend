@@ -4,7 +4,6 @@ from app.database import Base
 from sqlalchemy import Column, Integer, String, DateTime
 
 
-# ✅ ADD THIS
 class User(Base):
     __tablename__ = "users"
 
@@ -14,8 +13,6 @@ class User(Base):
     password_hash = Column(String(255), nullable=False)
     created_at = Column(TIMESTAMP, default=datetime.utcnow)
 
-
-# ✅ YOUR EXISTING MODEL
 class Appointment(Base):
     __tablename__ = "appointments"
 
