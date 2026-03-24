@@ -22,4 +22,3 @@ class Appointment(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
     appointment_date = Column(DateTime, nullable=False)
     date_time = Column(TIMESTAMP, default=datetime.utcnow)
-    user_email = Column(String)
