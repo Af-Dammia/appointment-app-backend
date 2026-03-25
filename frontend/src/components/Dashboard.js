@@ -9,6 +9,11 @@ const Dashboard = () => {
   const [appointments, setAppointments] = useState([]);
   const [editing, setEditing] = useState(null);
 
+const handleUpdate = () => {
+  fetchAppointments();  // refresh list
+  setEditing(null);     // reset editing state
+};
+
   const fetchAppointments = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -46,7 +51,7 @@ const Dashboard = () => {
           <AppointmentForm
             onAdd={handleAdd}
             editing={editing}
-            onUpdate={fetchAppointments}
+            onUpdate={handleUpdate}
             onCancel={handleCancelEdit} 
          />
         </div>

@@ -46,7 +46,14 @@ const AppointmentList = ({ appointments, onDelete, onEdit }) => {
               <div className="appointment-info">
                 <p className="appointment-title">{a.title}</p>
                 <p className="appointment-desc">{a.description}</p>
-                <p className="appointment-date">{new Date(a.appointment_date).toLocaleString()}</p>
+                <p className="appointment-date">{new Date(a.appointment_date).toLocaleString("de-DE", {
+                        timeZone: "Europe/Berlin",
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        })}</p>
               </div>
               <div className="card-actions">
               <button onClick={() => onEdit(a)} className="edit-btn"> ✏️</button>
