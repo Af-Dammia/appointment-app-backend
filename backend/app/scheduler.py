@@ -42,14 +42,20 @@ async def check_and_send_reminders():
     """
     upcoming = get_upcoming_appointments(hours_ahead=1)
     for appointment in upcoming:
-        if appointment.user_email:
+        if appointment.user:
             # Send email with Berlin time in message
             appointment_time_berlin = appointment.appointment_date.replace(tzinfo=pytz.UTC).astimezone(BERLIN)
             await send_reminder_email(
-                appointment.user_email,
+                appointment.user.email,
                 appointment.title,
                 appointment_time_berlin.strftime("%Y-%m-%d %H:%M")
             )
+            # Mark reminder as sent to avoid duplicates
+            appointment.reminder_sent = True    
+            db=SessionLocal()
+            db.add(appointment)
+            db.commit() 
+            db.close()
 
 def start_scheduler():
     # Check every minute
