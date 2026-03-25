@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Text, ForeignKey, TIMESTAMP
 from datetime import datetime
 from app.database import Base
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, Boolean
 
 
 class User(Base):
@@ -22,3 +22,4 @@ class Appointment(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
     appointment_date = Column(DateTime, nullable=False)
     date_time = Column(TIMESTAMP, default=datetime.utcnow)
+    reminder_sent = Column(Boolean, default=False)
