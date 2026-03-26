@@ -35,7 +35,7 @@ const AppointmentForm = ({ onAdd, editing, onUpdate, onCancel }) => {
       const payload = {
         title,
         description,
-        appointment_date: date,
+        appointment_date: date.toISOString(),
       };
 
       if (editing) {

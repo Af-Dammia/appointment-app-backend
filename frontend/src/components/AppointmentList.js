@@ -47,7 +47,6 @@ const AppointmentList = ({ appointments, onDelete, onEdit }) => {
                 <p className="appointment-title">{a.title}</p>
                 <p className="appointment-desc">{a.description}</p>
                 <p className="appointment-date">{new Date(a.appointment_date).toLocaleString("de-DE", {
-                        timeZone: "Europe/Berlin",
                         year: "numeric",
                         month: "short",
                         day: "numeric",
