@@ -6,6 +6,7 @@ from app.models import Appointment
 from app.database import SessionLocal
 from app.email_service import send_reminder_email
 import pytz
+import asyncio
 
 # Berlin timezone for emails
 BERLIN = pytz.timezone("Europe/Berlin")
@@ -75,3 +76,8 @@ def start_scheduler():
     scheduler.add_job(check_and_send_reminders, "interval", minutes=1, id="reminder_job", args=[5])
     scheduler.start()
     print("[Scheduler] Started: sending appointment reminders every minute (test mode: 5 mins ahead).")
+
+
+if __name__ == "__main__":
+    start_scheduler()
+    asyncio.get_event_loop().run_forever()
