@@ -79,35 +79,35 @@ npm start
 
 ### Add Appointment
 
-<img src = "assets/AddAppintment.png", width = "300" />
-<img src = "assets/AddAppointmentReset.png", width = "300" />
-<img src = "assets/AppontmentUpdatedInList.png", width = "300" />
-<img src = "assets/AppointmentTable.png", width = "300" />
+<img src = "assets/AddAppintment.png" width = "300" />
+<img src = "assets/AddAppointmentReset.png" width = "300" />
+<img src = "assets/AppontmentUpdatedInList.png" width = "300" />
+<img src = "assets/AppointmentTable.png" width = "300" />
 
 ### Delete Appointment
-<img src = "assets/DeleteAppointment.png", width = "300" />
-<img src = "assets/SuccessDelete.png", width = "300" />
-<img src = "assets/DeleteAppointmentUpdatedList.png", width = "300" />
+<img src = "assets/DeleteAppointment.png" width = "300" />
+<img src = "assets/SuccessDelete.png" width = "300" />
+<img src = "assets/DeleteAppointmentUpdatedList.png" width = "300" />
 
 ### Update Appointment
-<img src = "assets/AppointmentUpdate.png", width = "300" />
-<img src = "assets/SuccessUpdate.png", width = "300" />
-<img src = "assets/DashboardAfterUpdate.png", width = "300" />
+<img src = "assets/AppointmentUpdate.png" width = "300" />
+<img src = "assets/SuccessUpdate.png" width = "300" />
+<img src = "assets/DashboardAfterUpdate.png" width = "300" />
 
 ### Invalid User or Password
-<img src = "assets/UnknownUserLogin.png", width = "300" />
-<img src = "assets/UnknownUserLoginFail.png", width = "300" />
-<img src = "assets/UserTable.png", width = "300" />
+<img src = "assets/UnknownUserLogin.png" width = "300" />
+<img src = "assets/UnknownUserLoginFail.png" width = "300" />
+<img src = "assets/UserTable.png" width = "300" />
 
 ### New User Registration
-<img src = "assets/NewUserRegistration.png", width = "300" />
-<img src = "assets/RegistrationSuccess.png", width = "300" />
-<img src = "assets/DatabaseUpdatedforNewUser.png", width = "300" />
+<img src = "assets/NewUserRegistration.png" width = "300" />
+<img src = "assets/RegistrationSuccess.png" width = "300" />
+<img src = "assets/DatabaseUpdatedforNewUser.png" width = "300" />
 
 ### Console Log for Sendind E-Mail Reminder
-<img src = "assets/ConsoleLogOfEmailReminder.png", width = "300" />
-<img src = "assets/EmailReceived.png", width = "300" />
-<img src = "assets/ReminderSentUpdatedTrue.png", width = "300" />
+<img src = "assets/ConsoleLogOfEmailReminder.png" width = "300" />
+<img src = "assets/EmailReceived.png" width = "300" />
+<img src = "assets/ReminderSentUpdatedTrue.png" width = "300" />
 
 ---
 
