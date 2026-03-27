@@ -81,7 +81,7 @@ const AppointmentForm = ({ onAdd, editing, onUpdate, onCancel }) => {
         onChange={(d) => setDate(d)}
         showTimeSelect
         timeFormat="HH:mm"
-        timeIntervals={15}
+        timeIntervals={5}
         dateFormat="MMMM d, yyyy h:mm aa"
         placeholderText="Select date and time"
         className="form-input"

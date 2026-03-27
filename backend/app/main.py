@@ -1,3 +1,5 @@
+import asyncio
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware  # <-- import CORS middleware
 from app.routers import appointments, auth
@@ -36,8 +38,8 @@ app.include_router(auth.router)
 @app.get("/")
 def home():
     return {"message": "Backend is running"}
-from app.email_service import send_reminder_email
 """
+from app.email_service import send_reminder_email
 @app.get("/test-email")
 async def test_email():
     await send_reminder_email(
@@ -47,4 +49,7 @@ async def test_email():
     )
     return {"message": "Email sent"}
 """
-start_scheduler()
+@app.on_event("startup")
+async def start_scheduler_on_startup():
+    # Runs the scheduler in the background without blocking FastAPI
+    asyncio.create_task(start_scheduler())

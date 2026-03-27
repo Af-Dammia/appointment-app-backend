@@ -8,58 +8,71 @@ from app.email_service import send_reminder_email
 import pytz
 import asyncio
 
-# Berlin timezone for emails
 BERLIN = pytz.timezone("Europe/Berlin")
+
+# 5 for testing → 60 for production)
+MINUTES_AHEAD = 60
 
 scheduler = AsyncIOScheduler()
 
-def get_upcoming_appointments(db: Session, minutes_ahead: int = 60):
-    """
-    Fetch appointments that will occur within the next X minutes
-    and haven't received a reminder yet.
-    """
+
+def get_upcoming_appointments(db: Session):
     now_utc = datetime.now(timezone.utc)
-    upcoming_utc = now_utc + timedelta(minutes=minutes_ahead)
+    future_limit = now_utc + timedelta(minutes=MINUTES_AHEAD + 1)
 
     return (
         db.query(Appointment)
         .options(joinedload(Appointment.user))
         .filter(Appointment.reminder_sent == False)
-        .filter(Appointment.appointment_date >= now_utc)
-        .filter(Appointment.appointment_date <= upcoming_utc)
+        .filter(Appointment.appointment_date >= now_utc)      # future only
+        .filter(Appointment.appointment_date <= future_limit) # within X minutes
         .all()
     )
 
 
-async def check_and_send_reminders(test_minutes: int = 5):
-    """
-    Scheduler job: sends reminders for appointments within the next X minutes.
-    By default, test_minutes=5 for testing; set to 60 for production.
-    """
+async def check_and_send_reminders():
     db = SessionLocal()
     try:
-        upcoming_appointments = get_upcoming_appointments(db, minutes_ahead=test_minutes)
+        now_utc = datetime.now(timezone.utc)
 
-        if upcoming_appointments:
-            print(f"[Scheduler] Found {len(upcoming_appointments)} upcoming appointment(s) for reminder.")
+        appointments = get_upcoming_appointments(db)
 
-        for appointment in upcoming_appointments:
-            if appointment.user and appointment.user.email:
-                # Convert UTC → Berlin timezone for email content
-                appointment_berlin = appointment.appointment_date.astimezone(BERLIN)
+        # DEBUG: print ALL appointments in DB
+        all_appointments = db.query(Appointment).all()
+        print("\n[DEBUG] All appointments in DB:")
+        for a in all_appointments:
+            print(a.id, a.title, a.appointment_date, a.reminder_sent)
+        print("-----\n")
 
-                # Send email reminder
+        if not appointments:
+            print("[Scheduler] No upcoming appointments.")
+            return
+
+        print("[Scheduler] Upcoming appointments:")
+
+        for appt in appointments:
+            if not appt.user or not appt.user.email:
+                continue
+
+            appt_berlin = appt.appointment_date.astimezone(BERLIN)
+
+            print(f"  → ID={appt.id} | {appt.user.email} | {appt_berlin}")
+
+            try:
                 await send_reminder_email(
-                    email=appointment.user.email,
-                    title=appointment.title,
-                    date=appointment_berlin.strftime("%Y-%m-%d %H:%M"),
+                    email=appt.user.email,
+                    title=appt.title,
+                    date=appt_berlin.strftime("%Y-%m-%d %H:%M"),
                 )
 
-                # Mark as sent to prevent duplicate emails
-                appointment.reminder_sent = True
-                print(f"[Scheduler] Reminder sent for appointment ID {appointment.id} at {appointment_berlin} Berlin time.")
+                appt.reminder_sent = True
+                print(f"  Email sent to {appt.user.email}")
+
+            except Exception as e:
+                print(f"  Email failed for {appt.user.email}: {e}")
 
         db.commit()
+
     except Exception as e:
         print("[Scheduler Error]:", e)
         db.rollback()
@@ -67,17 +80,10 @@ async def check_and_send_reminders(test_minutes: int = 5):
         db.close()
 
 
-def start_scheduler():
-    """
-    Starts the AsyncIOScheduler to run the reminder job every minute.
-    For testing, it will look 5 minutes ahead; production should use 60 minutes.
-    """
-    # Run every minute; test_minutes=5 for quick testing
-    scheduler.add_job(check_and_send_reminders, "interval", minutes=1, id="reminder_job", args=[5])
+async def start_scheduler():
+    scheduler.add_job(check_and_send_reminders, "interval", minutes=1)
     scheduler.start()
-    print("[Scheduler] Started: sending appointment reminders every minute (test mode: 5 mins ahead).")
-
-
-if __name__ == "__main__":
-    start_scheduler()
-    asyncio.get_event_loop().run_forever()
+    print(f"[Scheduler] Running every minute (window = {MINUTES_AHEAD} mins)")
+    
+    while True:
+        await asyncio.sleep(10)
