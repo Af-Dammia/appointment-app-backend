@@ -50,7 +50,7 @@ A full-stack appointment management system with automated email reminders.
 ## Installation (Backend)
 
 ```bash
-git clone <your-repo-url>
+git clone <https://github.com/Af-Dammia/appointment-app-backend.git>
 cd backend
 python -m venv venv
 venv\Scripts\activate   # Windows
@@ -72,23 +72,56 @@ npm start
 
 ## Demo
 
-###
-SignIn<img src="assets/SignIn.png" width="300" />
-SignIn Success<img src="assets/Sign-InSuccess.png" width="300" />
+### Sign In
+<img src = "assets/LoginPage.png" width = "300" />
+<img src = "assets/SignIn.png" width = "300" />
+<img src = "assets/Sign-InSuccess.png" width = "300" />
 
+### Add Appointment
+
+<img src = "assets/AddAppintment.png", width = "300" />
+<img src = "assets/AddAppointmentReset.png", width = "300" />
+<img src = "assets/AppontmentUpdatedInList.png", width = "300" />
+<img src = "assets/AppointmentTable.png", width = "300" />
+
+### Delete Appointment
+<img src = "assets/DeleteAppointment.png", width = "300" />
+<img src = "assets/SuccessDelete.png", width = "300" />
+<img src = "assets/DeleteAppointmentUpdatedList.png", width = "300" />
+
+### Update Appointment
+<img src = "assets/AppointmentUpdate.png", width = "300" />
+<img src = "assets/SuccessUpdate.png", width = "300" />
+<img src = "assets/DashboardAfterUpdate.png", width = "300" />
+
+### Invalid User or Password
+<img src = "assets/UnknownUserLogin.png", width = "300" />
+<img src = "assets/UnknownUserLoginFail.png", width = "300" />
+<img src = "assets/UserTable.png", width = "300" />
+
+### New User Registration
+<img src = "assets/NewUserRegistration.png", width = "300" />
+<img src = "assets/RegistrationSuccess.png", width = "300" />
+<img src = "assets/DatabaseUpdatedforNewUser.png", width = "300" />
+
+### Console Log for Sendind E-Mail Reminder
+<img src = "assets/ConsoleLogOfEmailReminder.png", width = "300" />
+<img src = "assets/EmailReceived.png", width = "300" />
+<img src = "assets/ReminderSentUpdatedTrue.png", width = "300" />
 
 ---
 
 ## Future Improvements
 
-* Dashboard with upcoming appointments
-* Push notifications
+* Dashboard with upcoming appointments highlighted
+* Real-time notifications
 * Mobile responsiveness
 * Email templates (HTML styling)
-* Logging & monitoring (production-ready)
+* Role-based access control (admin vs user)
+* Background worker system
 
 ---
 
 ## Author
 
-GitHub: https://github.com/Af-Dammia/appointment-app-backend  
+GitHub: https://github.com/Af-Dammia/ 
