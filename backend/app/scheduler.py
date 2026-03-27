@@ -37,7 +37,7 @@ async def check_and_send_reminders():
         now_utc = datetime.now(timezone.utc)
 
         appointments = get_pending_appointments(db)
-        
+
         '''
         # DEBUG: print ALL appointments in DB
         all_appointments = db.query(Appointment).all()
@@ -60,8 +60,9 @@ async def check_and_send_reminders():
                 appt_berlin = appt.appointment_date.astimezone(BERLIN)
 
                 print(f"[Scheduler] Sending reminder → ID={appt.id} | {appt.user.email} | {appt_berlin}")
-
+                '''
                 try:
+                     
                     await send_reminder_email(
                         email=appt.user.email,
                         title=appt.title,
@@ -73,6 +74,28 @@ async def check_and_send_reminders():
 
                 except Exception as e:
                     print(f"[Scheduler] Email failed for {appt.user.email}: {e}")
+                    '''
+                
+                MAX_RETRIES = 3
+                for attempt in range(MAX_RETRIES):
+                    try:
+                        await send_reminder_email(
+                            email=appt.user.email,
+                            title=appt.title,
+                            date=appt_berlin.strftime("%Y-%m-%d %H:%M"),
+                        )
+
+                        appt.reminder_sent = True
+                        print(f"[Scheduler] Email sent to {appt.user.email}")
+                        break  # success → exit loop
+
+                    except Exception as e:
+                        print(f"[Scheduler] Attempt {attempt+1} failed for {appt.user.email}: {e}")
+
+                        if attempt < MAX_RETRIES - 1:
+                            await asyncio.sleep(5)  # wait before retry
+                        else:
+                            print(f"[Scheduler] All retries failed for {appt.user.email}")
 
         db.commit()
 
