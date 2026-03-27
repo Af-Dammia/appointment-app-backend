@@ -73,8 +73,8 @@ npm start
 ## Demo
 
 ###
-![SignIn](assets/SignIN.png)
-![SignIn Success](assets/Sign-InSuccess.png)
+![SignIn]<img src="assets/SignIn.png" width="300" />
+![SignIn Success]<img src="assets/Sign-InSuccess.png" width="300" />
 
 ---
 
